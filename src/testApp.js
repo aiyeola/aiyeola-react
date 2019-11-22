@@ -4,9 +4,9 @@ import Ninjas from "./Ninjas";
 class AppTest extends Component {
   state = {
     ninjas: [
-      { name: Aiyeola, age: 20, belt: "blue", id: 1 },
-      { name: Noro, age: 30, belt: "green", id: 2 },
-      { name: Ade, age: 21, belt: "red", id: 3 }
+      { name: 'Aiyeola', age: 20, belt: "blue", id: 1 },
+      { name: 'Noro', age: 30, belt: "green", id: 2 },
+      { name: 'Ade', age: 21, belt: "red", id: 3 }
     ]
   };
   render() {
