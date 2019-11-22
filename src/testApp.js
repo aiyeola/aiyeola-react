@@ -14,6 +14,7 @@ class AppTest extends Component {
       <div className="App">
         <h1>My First React App</h1>
         <p>Welcome :)</p>
+        <h3>I'm running for president</h3>
         <Ninjas ninjas={this.state.ninjas} />
       </div>
     );
