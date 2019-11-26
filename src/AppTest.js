@@ -4,6 +4,9 @@ import AddNinja from "./Form";
 
 // This is a Container component
 class AppTest extends Component {
+  componentDidMount() {
+    console.log(this.props); // We automatically get props with a class based component
+  }
   state = {
     ninjas: [
       { name: "Aiyeola", age: 20, belt: "blue", id: 1 },
@@ -27,7 +30,7 @@ class AppTest extends Component {
       ninjas: ninjas
     });
   };
-// props are ways to pass data or functions from one component to another
+  // props are ways to pass data or functions from one component to another
   render() {
     return (
       <div className="App">
