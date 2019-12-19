@@ -3,10 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 // eslint-disable-next-line
 import App from "./App";
-import AppTest from "./AppTest";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<AppTest />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
