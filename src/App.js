@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Ninja from "./Ninjas";
+import AddNinja from "./AddNinja";
+
 import "./App.css";
 
 class App extends Component {
@@ -11,12 +13,30 @@ class App extends Component {
     ]
   };
 
+  addNinja = ninja => {
+    ninja.id = Math.random();
+    let ninjas = [...this.state.ninjas, ninja];
+    this.setState({
+      ninjas: ninjas
+    });
+  };
+
+  deleteNinja = id => {
+    let ninja = this.state.ninjas.filter(ninja => {
+      return ninja.id !== id;
+    });
+    this.setState({
+      ninjas: ninja
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>My First React App</h1>
         <p>Welcome :)</p>
-        <Ninja ninjas={this.state.ninjas} />
+        <Ninja deleteNinja={this.deleteNinja} ninjas={this.state.ninjas} />
+        <AddNinja addNinja={this.addNinja} />
       </div>
     );
   }
