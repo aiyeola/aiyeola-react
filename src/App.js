@@ -1,43 +1,28 @@
 import React, { Component } from "react";
-import Ninja from "./Ninjas";
-import AddNinja from "./AddNinja";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Navbar from "../src/components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Post from "./components/Post";
 
-import "./App.css";
 
-class App extends Component {
-  state = {
-    ninjas: [
-      { name: "Victor", age: 21, belt: "White", id: 1 },
-      { name: "Bright", age: 25, belt: "Red", id: 2 },
-      { name: "Jesse", age: 31, belt: "Lilac", id: 3 }
-    ]
-  };
-
-  addNinja = ninja => {
-    ninja.id = Math.random();
-    let ninjas = [...this.state.ninjas, ninja];
-    this.setState({
-      ninjas: ninjas
-    });
-  };
-
-  deleteNinja = id => {
-    let ninja = this.state.ninjas.filter(ninja => {
-      return ninja.id !== id;
-    });
-    this.setState({
-      ninjas: ninja
-    });
-  };
-
+export class App extends Component {
   render() {
     return (
-      <div className="App">
-        <h1>My First React App</h1>
-        <p>Welcome :)</p>
-        <Ninja deleteNinja={this.deleteNinja} ninjas={this.state.ninjas} />
-        <AddNinja addNinja={this.addNinja} />
-      </div>
+      <BrowserRouter>
+        <div>
+          <div className="App">
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/about" component={About} />
+              <Route path="/contact" component={Contact} />
+              <Route path="/:post_id" component={Post} />
+            </Switch>
+          </div>
+        </div>
+      </BrowserRouter>
     );
   }
 }
