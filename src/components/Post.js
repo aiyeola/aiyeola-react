@@ -1,50 +1,37 @@
-import React, { Component } from "react";
-// import axios from "axios";
-import { connect } from "react-redux";
+import React from "react";
+import { connect, useDispatch } from "react-redux";
 import { deletePost } from "../actions/postActions";
 
-class Posts extends Component {
-  // state = {
-  //   post: null
-  // };
-  // componentDidMount() {
-  //   let id = this.props.match.params.post_id;
-  //   axios.get("http://jsonplaceholder.typicode.com/posts/" + id).then(res => {
-  //     this.setState({
-  //       post: res.data
-  //     });
-  //   });
-  // }
+function Posts(props) {
+  const dispatch = useDispatch();
 
-  handleClick = () => {
-    this.props.deletePost(this.props.post.id);
-    this.props.history.push("/");
+  const { post } = props;
+  const handleClick = () => {
+    dispatch(deletePost(post.id));
+    props.history.push("/");
   };
 
-  render() {
-    console.log(this.props);
-    const post = this.props.post ? (
-      <div className="post">
-        <h4 className="center">{this.props.post.title}</h4>
-        <p>{this.props.post.body}</p>
-        <div className="center">
-          <button className="btn grey" onClick={this.handleClick}>
-            Delete Post
-          </button>
-        </div>
+  const individualPost = post ? (
+    <div className="post" key={post.id}>
+      <h4 className="center">{post.title}</h4>
+      <p>{post.body}</p>
+      <div className="center">
+        <button className="btn grey" onClick={() => handleClick()}>
+          Delete Post
+        </button>
       </div>
-    ) : (
-      <div className="center">Loading Posts..</div>
-    );
+    </div>
+  ) : (
+    <div className="center">Loading Posts..</div>
+  );
 
-    return (
-      <>
-        <div className="container">
-          <h4>{post}</h4>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <div className="container">
+        <h4>{individualPost}</h4>
+      </div>
+    </>
+  );
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -54,12 +41,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    deletePost: id => {
-      dispatch(deletePost(id));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps)(Posts);
