@@ -7,10 +7,19 @@ class ErrorBoundary extends React.Component {
       hasError: false,
       message: null,
       where: null,
+      errorMessage: '',
+    };
+  }
+
+  static getDerivedStateFromError(error) {
+    return {
+      errorMessage: error.toString(),
     };
   }
 
   componentDidCatch(error, info) {
+    this.logErrorToServices(error.toString(), info.componentStack);
+
     this.setState({
       hasError: true,
       message: error.message,
@@ -18,10 +27,13 @@ class ErrorBoundary extends React.Component {
     });
   }
 
+  // A fake logging service
+  logErrorToServices = console.log;
+
   render() {
-	const { hasError, message, where } = this.state;
-	console.log('where: ', where);
-	console.log('message: ', message);
+    const { hasError, message, where } = this.state;
+    // console.log('where: ', where);
+    // console.log('message: ', message);
     return hasError ? (
       <details style={{ whiteSpace: 'pre-wrap' }}>
         <summary>{message}</summary>
@@ -68,3 +80,7 @@ export default function Error() {
 // one is an error object while the second received argument is an object
 // containing a componentStack property with a friendly stack trace that
 // describes where in the React tree a component failed.
+
+// Boundaries are only designed for intercepting errors that originate from
+// 3 places in a react component : During render phase, in a lifecycle method
+// and in the constructor
